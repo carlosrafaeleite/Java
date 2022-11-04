@@ -1,0 +1,180 @@
+@charset "ISO-8859-1";
+
+@charset "ISO-8859-1";
+
+body {
+background: rgb(243, 237, 200)
+
+}
+
+header{
+
+    font: bold 14pt Arial;
+    text-align: center;
+
+}
+
+section{
+background: white;
+border-radius: 10px;
+padding: 20px;
+width: 700px;
+height:400px;
+margin: auto;
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.479);
+}
+
+footer{
+    text-align: center; 
+    font-style: italic;
+
+}
+
+div#msg{
+    font: bold 14pt Arial;
+    text-align: center;
+    padding: 5px;
+}
+
+
+
+div#topo{
+
+    font: bold 14pt Arial;
+    text-align: center;
+    
+
+}
+div#res{
+
+    font: bold 14pt Arial;
+    text-align: center;
+    color: rgb(34, 82, 15);
+    padding: 0px
+
+ }
+ 
+
+.pProduto{
+	font: italic bold 10pt Arial;
+    width: 5px, 5px;
+    height: 5px;
+    text-indent: -280px; 
+}
+
+
+.inputProduto{
+  font: bold 20pt Arial;
+ 
+ }
+
+.btnProduto{
+	font: bold 14pt Arial;
+    border-top-left-radius: 5px;
+    border-radius: 5px;
+    color: rgb(17, 84, 87);
+    width: 360px;
+    height: 30px;
+     color: rgb(17, 84, 87);
+
+	
+} 
+ 
+ 
+/*Table Base */
+
+  table {
+	 max-width: 70%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: arial;
+ 
+
+  }
+
+  .table {
+    
+    width: 100%;
+    margin-bottom: 20px;
+ 
+    
+  }
+
+  .table th,
+  .table td {
+    border-right: #999999 solid 1px;
+    font-size: 12px;
+    padding: 8px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .table td:last-child {
+     border-right: 0;
+  }
+
+  .table thead th {
+    font-weight: normal;
+    background-color: #005dab;
+    color: #fff;
+    font-size: 15px;
+  }
+
+  .table tbody > tr:nth-child(odd) > td,
+  .table tbody > tr:nth-child(odd) > th {
+    background-color: #f8f8f8;
+  }
+
+
+/* Small Sizes */
+@media (max-width: 767px) { 
+  
+  /* Responsive Table */
+  .table-responsive {
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+
+  .table-responsive thead,
+  .table-responsive tbody,
+  .table-responsive th,
+  .table-responsive td,
+  .table-responsive tr {
+    display: block;
+  }
+  .table-responsive td,
+  .table-responsive th {
+    height: 35px;
+  }
+
+  .table-responsive thead {
+    float: left;
+  }
+
+  .table-responsive tbody {
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+  }
+
+  .table-responsive tbody tr {
+    display: inline-block;
+  }
+
+  
+  .table td:last-child {
+     border-right: #999999 solid 1px;
+  }
+
+
+
+ 
+ 
+
+ 
+ 
