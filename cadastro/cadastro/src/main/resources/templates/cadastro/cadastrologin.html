@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de login</title>
+
+ <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+
+</head>
+<body >
+ <nav> 
+    <div class="nav-wrapper deep-purple" >
+      <a href="/index" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down ">
+        <li><a href="/cadastrologin">Login</a></li>
+        <li><a href="/cadastropessoa">Clientes</a></li>
+        <li><a href="/cadastrofuncionario">Funcionários</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<br>
+
+<div style="padding: 0px 200px 0px 200px">
+
+
+
+<h5>Cadastrar Login</h5>
+
+<form action=salvarlogin method="post" th:object="${loginobj}" >
+
+ 	<label>ID</label>
+    <input name="id" th:field="*{id}" readonly>
+    
+    <label>Login</label>
+    <input name="loginUser" type="text" th:field="*{loginUser}">
+
+    <label>Senha</label>
+    <input name="senhaUser" type="text" th:field="*{senhaUser}"> 
+
+    <label>Chave</label>
+    <input name="chaveUser" type="text" th:field="*{chaveUser}"> 
+    
+    <input  class=" deep-purple  waves-light btn"  type="submit" value="Salvar">
+    
+</form>
+<br>
+
+<form action="pesquisarlogin" method="post">
+
+<tr>
+
+<td> <label>Consultar por Nome</label></td>
+ <td>   <input name="consultarUser" type="text" > </td>
+ <td> <input  class=" deep-purple  waves-light btn"  type="submit" value="Consultar"></td>
+</tr>
+</form>
+
+	<table  >
+	<h3>Lista de Login</h3>
+	<a href="listarlogin"  class=" deep-purple  waves-light btn"  >listar</a>
+	<tr >
+		<th>ID</th>
+		<th>Usuario</th>
+		<th>Senha</th>
+		<th>Chave</th>
+	</tr>
+		
+		<tr th:each="log : ${logins}">
+        <td th:text="${log.id}" ></td>
+      <!-- <td ><a th:href="@{/telefones/{idlogin}(idlogin=${log.id})}"><span th:text="${log.loginUser}"></span></a> </td>  -->  
+      <td  th:text="${log.loginUser}"> </td>
+        <td th:text="${log.senhaUser}" ></td>
+        <td th:text="${log.chaveUser}" ></td>
+        <td><a th:href="@{/editarlogin/{idlogin}(idlogin=${log.id})}"  class=" deep-purple  waves-light btn"  >Editar</a></td>
+        <td><a th:href="@{/excluirlogin/{idlogin}(idlogin=${log.id})}"  class=" deep-purple  waves-light btn"  >Excluir</a></td>
+        
+    </tr>
+	
+	</table>
+	
+</div>
+	 <!--JavaScript at end of body for optimized loading-->
+      <script type="text/javascript" src="/materialize/js/materialize.js"></script>
+       <script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+</body>
+</html>

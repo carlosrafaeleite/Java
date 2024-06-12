@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+
+
+<h:head>
+<title>Login</title>
+</h:head>
+
+<h:body>
+
+		<h:form id="formLogin" style="margin-top:10%; margin-left:40%;">
+		
+		<h:panelGrid> 
+		
+		<f:facet name="header"><h:outputText value="Acesso ao Sistema"/> </f:facet>
+	
+		<h:outputLabel value="Usuário" />
+		<h:inputText value="#{usuariobean.usuario.nomeUsuario}" />
+
+		<h:outputLabel value="Senha" />
+		<h:inputSecret value="#{usuariobean.usuario.senhaUsuario}" />
+
+		</h:panelGrid>
+	
+		<h:panelGrid columns="2" style="margin-left:3%"> 
+		
+		<h:commandButton value="Acessar" action="#{usuariobean.logando}" />
+		<h:commandButton value="Cancelar" type="reset" />
+
+		</h:panelGrid>
+		
+		</h:form>
+
+</h:body>
+</html>

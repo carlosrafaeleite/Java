@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+<title>Cadastro de Usuário</title>
+</h:head>
+
+<h:body>
+
+		<h:panelGrid style="margin-left:40%;">
+			<ui:include src="/menu.xhtml"/>
+		<h:outputLabel value="Usuário Logado"/>	
+		<h:outputText value="#{usuariobean.logado()}"></h:outputText>
+			<h:messages/>
+		</h:panelGrid>	
+
+		<h:form id="formCadUsuario">
+		
+		
+
+	    <h:graphicImage height="70" width="70" library="imagens" name="unnamed.png"/>
+		<h:panelGrid style="120px;" >
+		
+		<f:facet name="header"><h:outputText value="Cadastro de Usuário"/> </f:facet>
+		
+		<h:outputLabel value="Data Nascimento" />
+		<h:inputText value="#{usuariobean.usuario.nascimento}" converterMessage="Insira uma Data Valida" required="true" 
+		requiredMessage="Informadasas uma data ##/##/####" > 
+		<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-03:00"/>
+		
+		<f:validateLength minimum="10"/>
+		</h:inputText>
+				
+		<h:outputLabel value="Nome" />
+		<h:inputText pt:placeholder="Nome"  value="#{usuariobean.usuario.nomeUsuario}"  required="true" requiredMessage="Nome não pode ser vazio" />
+
+		<h:outputLabel value="Senha" />
+		<h:inputText value="#{usuariobean.usuario.senhaUsuario}"  required="true" requiredMessage="Senha não pode ser vazio" pt:placeholder="senha"/>
+
+		<h:outputLabel value="Email" />
+		<h:inputText value="#{usuariobean.usuario.emailUsuario}"   required="true" requiredMessage="E-mail não pode ser vazio" pt:placeholder="email"/>
+		
+		<h:outputLabel value="Sexo" />
+		<h:selectOneMenu value="#{usuariobean.usuario.sexo}" >
+			
+			<f:selectItem itemValue="[-selecione-]" noSelectionOption="true"/>
+			<f:selectItem itemValue="Masculino"/>
+			<f:selectItem itemValue="Feminino"/>
+		
+		</h:selectOneMenu>
+	
+		
+		<h:outputLabel value="Estados" />
+		<h:selectOneMenu value="#{usuariobean.usuario.estados}" immediate="true" id="comboEstados" converter="estadoconverter">
+		
+			<f:selectItem itemLabel="[-selecione-]" noSelectionOption="true"/>	
+			<f:selectItems value="#{usuariobean.estados}"/>
+			<f:ajax event="change" execute="@this" render="comboCidades" listener="#{usuariobean.carregaCidades}" />				
+		</h:selectOneMenu>
+		
+		<h:outputLabel value="Cidades" />
+		<h:selectOneMenu value="#{usuariobean.usuario.cidades}" id="comboCidades" converter="cidadeconverter">
+		
+			<f:selectItem itemLabel="[-selecione-]" noSelectionOption="true"/>	
+			<f:selectItems value="#{usuariobean.cidades}"/>
+						
+		</h:selectOneMenu>
+		
+		
+		
+		<h:outputLabel value="Moderador" />
+		<h:selectOneMenu value="#{usuariobean.usuario.perfil}">
+			
+			<f:selectItem itemValue="[-selecione-]" noSelectionOption="true"/>
+			<f:selectItem itemValue="Administrador"/>
+			<f:selectItem itemValue="Colaborador"/>
+
+		</h:selectOneMenu>
+		<br/>
+		<h:outputLabel value="Cep" />
+		<h:inputText value="#{usuariobean.usuario.cep}"  required="true" requiredMessage="Cep não pode ser vazio">
+		 <f:ajax event="blur" execute="@this" listener="#{usuariobean.pesquisaCep}" render="logradouro complemento bairro localidade uf" />
+		</h:inputText>
+		
+		<h:outputLabel value="Logradouro" />
+		<h:inputText value="#{usuariobean.usuario.logradouro}" id="logradouro">
+		
+		</h:inputText>
+				
+		<h:outputLabel value="Complemento" />
+		<h:inputText value="#{usuariobean.usuario.complemento}" id="complemento">
+		 
+		</h:inputText>
+		
+		<h:outputLabel value="Bairro" />
+		<h:inputText value="#{usuariobean.usuario.bairro}" id="bairro" >
+		 
+		</h:inputText>
+		
+		<h:outputLabel value="Estado" id="estado" />
+		<h:inputText value="#{usuariobean.usuario.localidade}" id="localidade">
+		
+		</h:inputText>
+		
+		<h:outputLabel value="Uf" />
+		<h:inputText value="#{usuariobean.usuario.uf}" id="uf">
+		
+		</h:inputText>
+	
+		
+		<h:selectBooleanCheckbox value="#{usuariobean.usuario.ativo}">Ativo</h:selectBooleanCheckbox>
+		
+	<h:panelGroup >
+	 <h:panelGrid columns="4">
+		<h:commandButton value="Cadastrar" action="#{usuariobean.inserindo}"  />
+		<h:commandButton value="Salvar" action="#{usuariobean.salvando}"  />
+		<h:commandButton value="Atualizar" action="#{usuariobean.atualizando}" />
+		<h:commandButton value="pesquisando" action="#{usuariobean.pesquisando}" />
+		
+		
+		<h:commandButton value="Limpar" type="reset" />
+	</h:panelGrid>
+	</h:panelGroup>
+			<br/>
+	</h:panelGrid>
+	
+	<h:dataTable value="#{usuariobean.listaUsusario}" var="Resultado" border="2" cellpadding="5" >
+		
+		<f:facet name="header">Usuários Cadastrados</f:facet>
+		
+		<h:column>
+		<f:facet name="header">Id</f:facet>
+		<h:outputText value="#{Resultado.id}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Ativo</f:facet>
+		<h:outputText value="#{Resultado.ativo}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Nome</f:facet>
+		<h:outputText value="#{Resultado.nomeUsuario}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Senha</f:facet>
+		<h:outputText value="#{Resultado.senhaUsuario}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Email</f:facet>
+		<h:outputText value="#{Resultado.emailUsuario}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Sexo</f:facet>
+		<h:outputText value="#{Resultado.sexo}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">FrameWorks</f:facet>
+		<h:outputText value="#{Resultado.frameworks}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Perfil</f:facet>
+		<h:outputText value="#{Resultado.perfil}" />
+		</h:column>      
+		
+		<h:column>
+		<f:facet name="header">--</f:facet>
+			<h:commandLink  action="#{usuariobean.editando}">
+			 	<f:setPropertyActionListener value="#{Resultado}" target="#{usuariobean.usuario}"/>
+			 	<h:graphicImage value="/resources/imagens/editar.png" width="30" height="30" onmousemove="Editar"/>
+			 </h:commandLink>
+		</h:column>
+			
+		<h:column>
+		
+		<f:facet name="header">--</f:facet>
+			<h:commandLink  action="#{usuariobean.deletando}">
+			 	<f:setPropertyActionListener value="#{Resultado}" target="#{usuariobean.usuario}"/>
+			 	<h:graphicImage value="/resources/imagens/excluir.png" width="30" height="30"/>
+			</h:commandLink>
+		</h:column>
+
+		
+		</h:dataTable>
+
+	</h:form>
+
+</h:body>
+</html>

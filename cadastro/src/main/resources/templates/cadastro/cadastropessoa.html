@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de Cliente</title>
+
+
+
+ <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.css"  media="screen,projection"/>
+      <link type="text/css" rel="stylesheet" href="/materialize/css/materialize.min.css"  media="screen,projection"/>
+
+</head>
+<body>
+
+
+<nav> 
+    <div class="nav-wrapper deep-purple" >
+      <a href="/index" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down ">
+        <li><a href="/cadastrologin">Login</a></li>
+        <li><a href="/cadastropessoa">Clientes</a></li>
+        <li><a href="/cadastrofuncionario">Funcionários</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<br>
+
+<div style="padding: 0px 200px 0px 200px">
+
+<h5>Cadastro de Cliente</h5>
+<br>
+
+
+
+<form action="salvarcliente" method="post" th:object="${clienteobj}">
+
+
+	
+    <label>Identificação</label>
+    <input name="idCliente" type="text" readonly="readonly" th:field="*{idCliente}">
+   
+    <label>Nome</label>
+    <input name="nomeCliente" type="text" th:field="*{nomeCliente}">
+
+    <label>Endereço</label>
+    <input name="enderecoCliente" type="text" th:field="*{enderecoCliente}"> 
+
+    <label>Cidade</label>
+    <input name="cidadeCliente" type="text" th:field="*{cidadeCliente}"> 
+    
+     <label>Estado</label>
+    <input name="estadoCliente" type="text" th:field="*{estadoCliente}"> 
+    
+     <label>Idade</label>
+    <input name="idadeCliente" type="text" th:field="*{idadeCliente}"> 
+    
+    <label>Cpf</label>
+    <input name="cpfCliente" type="text" th:field="*{cpfCliente}"> 
+     
+    <input  class=" deep-purple  waves-light btn" type="submit" value="Salvar">
+</form>
+<br><br>
+
+<form action="pesquisarcliente" method="post">
+
+<tr>
+
+<td> <label>Consultar por Nome</label></td>
+ <td>   <input name="consultarCliente" type="text" > </td>
+ <td> <input  class=" deep-purple  waves-light btn"  type="submit" value="Consultar"></td>
+</tr>
+</form>
+
+<br>
+	<table  >
+	<h6>Lista de Usuarios</h6>
+	<!--  <a href="listarcliente" class="waves-effect waves-light btn" >listar Clientes</a> -->
+	<tr >
+		<th>ID</th>
+		<th>Nome</th>
+		<th>Endereço</th>
+		<th>Cidade</th>
+		<th>Estado</th>
+		<th>Idade</th>
+		<th>CPF</th>
+	</tr>
+		
+		<tr th:each="cli : ${clientes}">
+        <td th:text="${cli.idCliente}" ></td>
+      <!-- <td ><a th:href="@{/telefones/{idcliente}(idcliente=${cli.idCliente})}"><span th:text="${cli.nomeCliente}"></span></a> </td> --> 
+      <td  th:text="${cli.nomeCliente}"></td> 
+        <td th:text="${cli.enderecoCliente}" ></td>
+        <td th:text="${cli.cidadeCliente}" ></td>
+        <td th:text="${cli.idadeCliente}" ></td>
+        <td th:text="${cli.cpfCliente}" ></td>
+        <td><a th:href="@{/editarcliente/{idCliente}(idCliente=${cli.idCliente})}"  class=" deep-purple  waves-light btn"  >Editar</a></td>
+        <td><a th:href="@{/excluircliente/{idCliente}(idCliente=${cli.idCliente})}"   class=" deep-purple  waves-light btn"  >Excluir</a></td>
+        
+    </tr>
+
+</div>
+	 <!--JavaScript at end of body for optimized loading-->
+      <script type="text/javascript" src="/materialize/js/materialize.js"></script>
+       <script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+</body>
+</html>

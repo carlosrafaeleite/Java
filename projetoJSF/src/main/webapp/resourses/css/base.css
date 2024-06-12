@@ -1,0 +1,62 @@
+
+
+body {
+    background: #80ffff;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+}
+
+.login {
+    text-align: center;
+    padding: 5px;
+    width: 300px;
+    margin-left: 30px;
+    margin-top: 20px;
+   
+    background: #c0c0c0;
+   
+}
+
+.senha {
+    text-align: center;
+    padding: 5px;
+    width: 30	0px;
+    margin-left: 30px;
+    margin-top: 20px;
+   
+   background: #c0c0c0;
+   
+}
+
+.senha {
+    text-align: center;
+    padding: 5px;
+    width: 300px;
+    margin-left: 30px;
+    margin-top: 20px;
+   
+   background: #c0c0c0;
+   
+}
+.btnCad_Cliente {
+    text-align: center;
+    padding: 5px;
+    width: 200px;
+    margin-left: 30px;
+    margin-top: 20px;
+   background: #c0c0c0;
+   
+}
+.btnCancelar {
+    text-align: center;
+    padding: 5px;
+    width: 200px;
+    margin-left: 30px;
+    margin-top: 20px;
+    background: #c0c0c0;
+   
+  
+}

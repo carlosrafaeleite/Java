@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:b="http://bootsfaces.net/ui">
+
+<h:head>
+<title>Lancamentos</title>
+</h:head>
+
+<h:body>
+		<h:panelGrid >
+				<ui:include src="/menu.xhtml"/>
+				<h:messages/>
+		</h:panelGrid>	
+		
+
+		<h:form id="formLancamento" >
+		
+	
+		<h:panelGrid style="margin-left:37%;"  > 
+		
+		<f:facet name="header"><h:outputText value="Cadastro de Notas" style="padding-left:30px;"/> </f:facet>
+		<br/>
+		
+		<b:label value="Nota Fiscal" />
+		<b:inputText value="#{lancamentobean.lancamento.numeroNota}" requiredMessage="Numero da nota deve ser informado" />
+
+		<b:label value="Destino" />
+		<b:inputText value="#{lancamentobean.lancamento.empresaDestino}" requiredMessage="O destino deve ser informado"/>
+		
+		<b:label value="Origem" />
+		<b:inputText value="#{lancamentobean.lancamento.empresaOrigem}" requiredMessage="A origem deve ser informado"/>
+		
+		
+		<b:radiobutton value="#{lancamentobean.lancamento.entregar}" style="margin-left:20%;">
+			<f:selectItem itemValue="Entregar" itemLabel="Entregar"/>
+			<f:selectItem itemValue="Retirada" itemLabel="Retirada"/>
+		</b:radiobutton>
+
+		<h:selectManyCheckbox value="#{lancamentobean.lancamento.horarioEntrega}" style="margin-left:10%;" >
+		 	<f:selectItem itemValue="Manhã" itemLabel="Manhã"  />
+			<f:selectItem itemValue="Tarde" itemLabel="Tarde"/>
+			<f:selectItem itemValue="Noite" itemLabel="Noite"/>
+		</h:selectManyCheckbox>
+		
+		
+		</h:panelGrid>
+	<br/>
+		<h:panelGrid columns="3" style="margin-left:35%;" > 
+		
+		<b:commandButton value="Salvando" action="#{lancamentobean.salvar}" />
+		<b:commandButton value="Limpando" action="#{lancamentobean.novoLancamento}" />
+		<b:commandButton value="Atualizando"  action="#{lancamentobean.atualizandoLancamento}" />
+		</h:panelGrid>
+		<br/>
+		
+	
+		
+	<b:dataTable value="#{lancamentobean.listaLancamento}" var="Resultado" border="2" cellpadding="5"  >
+		
+		<f:facet name="header">Lançamentos</f:facet>
+		
+		
+			
+		<h:column>
+		<f:facet name="header">N° Nota</f:facet>
+		<h:outputText value="#{Resultado.numeroNota}" />
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Destino</f:facet>
+		<h:outputText value="#{Resultado.empresaDestino}" />
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Origem</f:facet>
+		<h:outputText value="#{Resultado.empresaOrigem}"  />
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Entregar</f:facet>
+		<h:outputText value="#{Resul.entregar}" />
+		</h:column>
+		
+		
+		
+		<h:column>
+		<f:facet name="header">--</f:facet>
+			<h:commandLink>
+			 	<f:setPropertyActionListener value="#{Resultado}" target="#{lancamentobean.lancamento}"  />
+			 	<h:graphicImage value="/resources/imagens/editar.png" width="30" height="30" onmousemove="Editar" />
+			 </h:commandLink>
+		</h:column>
+			
+		<h:column>
+		
+		<f:facet name="header">--</f:facet>
+			<h:commandLink  action="#{lancamentobean.deletandoLancamento}" immediate="true">
+			 	<f:setPropertyActionListener value="#{Resultado}" target="#{lancamentobean.lancamento}"/>
+			 	<h:graphicImage value="/resources/imagens/excluir.png" width="30" height="30" />
+			</h:commandLink>
+		</h:column>
+
+		</b:dataTable>
+		
+		</h:form>
+
+</h:body>
+</html>

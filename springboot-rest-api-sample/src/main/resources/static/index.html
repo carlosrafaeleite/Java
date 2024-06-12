@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Cadastro login</title>
+
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Adicionando JQuery -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+	integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+	crossorigin="anonymous"></script>
+
+<style type="text/css">
+html {
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 3%
+}
+
+.btx {
+	display: flex;
+	justify-content: space-around;
+	margin-left: 4%;
+	margin-right: 4%;
+}
+
+.tabresultado {
+	height: 300px;
+	overflow: scroll;
+}
+</style>
+
+</head>
+<body>
+
+	<img src="unnamed.png">
+	<p>
+	<h1>Cadastro de login com SpringBoot</h1>
+
+
+
+	<form action="" id="formUser">
+
+		<div class="mb-3">
+
+			<input type="text" class="form-control" placeholder="Id" id="id"
+				name="id" readonly="readonly">
+		</div>
+
+		<div class="mb-3">
+
+			<input type="text" class="form-control" id="nome" name="nome"
+				autofocus="autofocus" placeholder="Insira seu nome">
+		</div>
+
+		<div class="mb-3">
+
+			<input type="text" class="form-control" id="senha" name="senha"
+				placeholder="Insira sua senha">
+		</div>
+
+		<div class="btx">
+			<button type="button" class="btn btn-secondary btn-lg btn-block"
+				onclick="document.getElementById('formUser').reset(); document.getElementById('nome').focus(); ">Novo
+				></button>
+			<button type="button" class="btn btn-secondary btn-lg btn-block"
+				onclick="salvando()">Salvar ></button>
+			<button type="button" class="btn btn-secondary btn-lg btn-block"
+				onclick="salvando()">Alterar ></button>
+			<button type="button" class="btn btn-secondary btn-lg btn-block"
+				onclick="deletarTela()">Excluir ></button>
+			<button type="button" class="btn btn-secondary btn-lg btn-block"
+				data-bs-toggle="modal" data-bs-target="#exampleModal"
+				onclick="clearTable()" data-bs-whatever="@mdo">Pesquisar ></button>
+		</div>
+
+	</form>
+
+
+
+
+
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisar por
+						nome</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="mb-3">
+
+							<input type="text" class="form-control" id="recipient-name"
+								name="recipient-name">
+						</div>
+						<div class="modal-footer">
+
+							<button type="button" class="btn btn-secondary"
+								onclick="pesquisaUser()">Pesquisar...</button>
+						</div>
+					</form>
+					<div class="tabresultado">
+						<table class="table table-striped" id="tabUser">
+
+							<thead>
+								<tr>
+									<th scope="col">Código</th>
+									<th scope="col">Nome</th>
+									<th scope="col">Senha</th>
+									<th scope="col">Editar</th>
+									<th scope="col">Excluir</th>
+
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-bs-dismiss="modal">Fechar ></button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<script type="text/javascript">
+		function deletarTela() {
+
+			var id = $('#id').val();
+
+			if (id != null && id.trim() != '') {
+
+				excluir(id);
+			} else {
+
+				alert("Pesquise um usuário");
+
+			}
+		}
+
+		function excluir(id) {
+
+			if (confirm('Deseja Deletar este Usuário')) {
+
+				$.ajax({
+
+					method : "DELETE",
+					url : "excluir",
+					data : "iduser=" + id,
+
+					success : function(response) {
+
+						$("#id").val(response.id);
+						$("#nome").val(response.nome);
+						$("#senha").val(response.senha);
+						$('#' + id).remove();
+
+						document.getElementById('id').value = "";
+						document.getElementById('nome').value = "";
+						document.getElementById('senha').value = "";
+						document.getElementById('recipient-name').value = "";
+						document.getElementById('recipient-name').focus();
+
+					}
+
+				}).fall(function(xhr, status, errorThrown) {
+
+					alert("Erro de Exclusão" + "" + xhr.responseText);
+				});
+			}
+		}
+
+		function editar(id) {
+
+			$.ajax({
+
+				method : "GET",
+				url : "pesquisar",
+				data : "iduser=" + id,
+
+				success : function(response) {
+
+					$("#id").val(response.id);
+					$("#nome").val(response.nome);
+					$("#senha").val(response.senha);
+
+					document.getElementById('recipient-name').value = "";
+
+					$("#exampleModal").modal('hide')
+
+				}
+
+			}).fall(function(xhr, status, errorThrown) {
+
+				alert("Erro de Pesquisa" + "" + xhr.responseText);
+			});
+
+		}
+
+		function salvando() {
+
+			var id = $("#id").val();
+			var nome = $("#nome").val();
+			var senha = $("#senha").val();
+
+			$.ajax(
+					{
+
+						method : "POST",
+						url : "salvar",
+						data : JSON.stringify({
+							id : id,
+							nome : nome,
+							senha : senha
+						}),
+						contentType : "application/json; charset=utf-8",
+						success : function(response) {
+
+							if (document.getElementById("nome").value == ''
+									|| nome.trim() == '') {
+
+								window.alert('Insira uma nome');
+								$("#nome").focus();
+
+							} else
+
+							if (document.getElementById("senha").value == ''
+									|| senha.trim() == '') {
+
+								window.alert('Insira uma senha');
+								$("#senha").focus();
+
+							} else {
+
+								alert("Salvo com Sucesso");
+								document.getElementById('id').value = "";
+								document.getElementById('nome').value = "";
+								document.getElementById('senha').value = "";
+							}
+
+						}
+
+					}).fall(function(xhr, status, errorThrown) {
+
+				alert("Erro ao salvar" + "" + xhr.responseText);
+			});
+		}
+
+		function pesquisaUser() {
+
+			var nome = $("#recipient-name").val();
+
+			if (nome != null && nome.trim != '') {
+
+				$
+						.ajax(
+								{
+
+									method : "GET",
+									url : "pesquisarNome",
+									data : "nome=" + nome,
+
+									success : function(response) {
+
+										$('#tabUser > tbody > tr').remove();
+
+										for (var i = 0; i < response.length; i++) {
+
+											$('#tabUser > tbody')
+													.append(
+															'<tr id="'+response[i].id+'"><td>'
+																	+ response[i].id
+																	+ '</td><td>'
+																	+ response[i].nome
+																	+ '</td><td>'
+																	+ response[i].senha
+																	+ '</td></td><td><button type="button" onclick="editar('
+																	+ response[i].id
+																	+ ')" class="btn btn-primary">Editar</button></td><td><button type="button" onclick="excluir('
+																	+ response[i].id
+																	+ ')" class="btn btn-danger">Excluir</button></td></tr>');
+										}
+
+									}
+
+								}).fall(function(xhr, status, errorThrown) {
+
+							alert("Erro de Pesquisa" + "" + xhr.responseText);
+						});
+
+			}
+
+		}
+	</script>
+
+</body>
+</html>

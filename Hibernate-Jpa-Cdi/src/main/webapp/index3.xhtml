@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+<title>Página Principal</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="formUsuario">
+	
+		<h:graphicImage height="70" width="70" library="imagens" name="unnamed.png"/>
+	 
+
+		<h:panelGrid style="120px;" >
+		
+		<f:facet name="header"><h:outputText value="Cadastro de Usuário"/> </f:facet>
+		
+		<h:outputLabel value="Id" />
+		<h:inputText value="#{usuariobean.usuario.id}" readonly="true" />
+		
+		<h:outputLabel value="Nome" />
+		<h:inputText value="#{usuariobean.usuario.nomeUsuario}" />
+
+		<h:outputLabel value="Senha" />
+		<h:inputText value="#{usuariobean.usuario.senhaUsuario}" />
+
+		<h:outputLabel value="Email" />
+		<h:inputText value="#{usuariobean.usuario.emailUsuario}" />
+		
+		<h:outputLabel value="Moderador" />
+		<h:selectOneMenu value="#{usuariobean.usuario.perfil}">
+			
+			<f:selectItem itemValue="[-selecione-]" noSelectionOption="true"/>
+			<f:selectItem itemValue="Administrador"/>
+			<f:selectItem itemValue="Colaborador"/>
+			
+		
+		</h:selectOneMenu>
+		
+		
+		
+		<h:outputLabel value="Sexo" />
+		<h:selectOneMenu value="#{usuariobean.usuario.sexo}">
+			
+			<f:selectItem itemValue="[-selecione-]" noSelectionOption="true"/>
+			<f:selectItem itemValue="Masculino"/>
+			<f:selectItem itemValue="Feminino"/>
+		
+		</h:selectOneMenu>
+
+		
+		<h:outputLabel value="Frameworks" />
+		<h:selectManyMenu id="frames" value="#{usuariobean.usuario.frameworks}" style="height:120px;">
+		
+			<f:selectItem itemValue="Hibernate"/>
+			<f:selectItem itemValue="Spring"/>
+			<f:selectItem itemValue="Maven"/>
+			<f:selectItem itemValue="JPA"/>
+			<f:selectItem itemValue="JSF"/>
+			<f:selectItem itemValue="Maven"/>
+			<f:selectItem itemValue="PrimeFaces"/>
+		
+		</h:selectManyMenu>
+		
+		<h:selectBooleanCheckbox value="#{usuariobean.usuario.ativo}">Ativo</h:selectBooleanCheckbox>
+		
+		<br/>
+	<h:panelGroup>
+		<h:commandButton value="Inserindo" action="#{usuariobean.inserindo}" />
+		<h:commandButton value="limpando" type="reset" />
+		<h:commandButton value="Salvando" action="#{usuariobean.salvando}" />
+		<h:commandButton value="Pesquisando" action="#{usuariobean.pesquisando}" />
+		<h:commandButton value="Excluindo" action="#{usuariobean.deletando}" />
+		<h:commandButton value="Atualizando" action="#{usuariobean.atualizando}" />
+	</h:panelGroup>
+		<br/>
+	</h:panelGrid>
+ 
+ 
+		<h:dataTable value="#{usuariobean.listaUsusario}" var="Resultado" border="2" cellpadding="5" >
+		
+		<f:facet name="header">Usuários Cadastrados</f:facet>
+		
+		<h:column>
+		<f:facet name="header">Id</f:facet>
+		<h:outputText value="#{Resultado.id}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Ativo</f:facet>
+		<h:outputText value="#{Resultado.ativo}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Nome</f:facet>
+		<h:outputText value="#{Resultado.nomeUsuario}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Senha</f:facet>
+		<h:outputText value="#{Resultado.senhaUsuario}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Email</f:facet>
+		<h:outputText value="#{Resultado.emailUsuario}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Sexo</f:facet>
+		<h:outputText value="#{Resultado.sexo}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">FrameWorks</f:facet>
+		<h:outputText value="#{Resultado.frameworks}"/>
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">Perfil</f:facet>
+		<h:outputText value="#{Resultado.perfil}" />
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">--</f:facet>
+			<h:commandLink  action="#{usuariobean.atualizando}"  id="fades">
+			 	<f:setPropertyActionListener value="#{Resultado}" target="#{usuariobean.usuario}"/>
+			 	<h:graphicImage value="/resources/imagens/editar.png" width="30" height="30" onmousemove="Editar"/>
+			 </h:commandLink>
+		</h:column>
+			
+		<h:column>
+		
+		<f:facet name="header">--</f:facet>
+			<h:commandLink  action="#{usuariobean.deletando}">
+			 	<f:setPropertyActionListener value="#{Resultado}" target="#{usuariobean.usuario}"/>
+			 	<h:graphicImage value="/resources/imagens/excluir.png" width="30" height="30"/>
+			</h:commandLink>
+		</h:column>
+
+		
+		</h:dataTable>
+		
+	</h:form>
+
+</h:body>
+
+
+</html>

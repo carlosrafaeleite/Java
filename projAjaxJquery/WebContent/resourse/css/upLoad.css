@@ -1,0 +1,9 @@
+@charset "ISO-8859-1";
+
+.img{
+	width: 200px;
+	height: 200px;
+	overflow: hidden;
+	background-color: yellow;
+	border: solid;
+}

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+
+<title>Cadastro de Funcionário</title>
+
+<script>
+        function limparMensagem() {
+        document.getElementById('mensagem').innerText = '';
+        }
+ </script>
+ 
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet"
+	href="/materialize/css/materialize.css" media="screen,projection" />
+<link type="text/css" rel="stylesheet"
+	href="/materialize/css/materialize.min.css" media="screen,projection" />
+	
+
+	
+	
+
+</head>
+<body >
+
+ <nav> 
+    <div class="nav-wrapper deep-purple" >
+      <a href="/index" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down ">
+        <li><a href="/cadastrologin">Login</a></li>
+        <li><a href="/cadastropessoa">Clientes</a></li>
+        <li><a href="/cadastrofuncionario">Funcionários</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<br>
+
+<div style="padding: 0px 200px 0px 200px">
+	<h5>Cadastrar Funcionário</h5>
+ 	<p> 
+ 	<h5 id="mensagem" th:text="${mensagem}"></h5>
+
+	<form action="salvarfuncionario" method="post">
+	    
+    <div>
+    <label>Nome</label>
+    <input  name="nomeFuncionario" type="text" onfocus="limparMensagem()" class="validate"  required="required">
+    <span class="helper-text" data-error="Campo Obrigatório" ></span>
+    </div>
+    <p>
+    <div>
+    <label>Endereço</label>
+    <input name="enderecoFuncionario" type="text" class="validate" required="required" >
+    <span class="helper-text" data-error="Campo Obrigatório"></span>
+    </div>
+    <p>
+    <div >
+    <label>Cidade</label>
+    <input name="cidadeFuncionario" type="text" class="validate" required="required">
+    <span class="helper-text" data-error="Campo Obrigatório" ></span>
+    </div>
+    <p>
+    <div >
+    <label>Estado</label>
+    <input name="estadoFuncionario" type="text" class="validate" required="required">
+    <span class="helper-text" data-error="Campo Obrigatório"></span>
+    </div>
+    <p>
+    <div >
+    <label>Idade</label>
+    <input name="idadeFuncionario" type="text" class="validate" required="required">
+    <span class="helper-text" data-error="Campo Obrigatório"></span>
+    </div>
+    <p>
+    <div >
+    <label>Função</label>
+    <input name="cargoFuncionario" type="text" class="validate" required="required">
+    <span class="helper-text" data-error="Campo Obrigatório"></span>
+    </div>
+   <p>
+    <input class=" deep-purple  waves-light btn" type="submit" value="Salvar">
+    
+    <!-- 
+    <label>Identificação</label>
+    <input name="idFuncionario" type="text" th:field="*{idFuncionario}" >
+    
+    <label>Nome</label>
+    <input name="nomeFuncionario" type="text" th:field="*{nomeFuncionario}">
+    
+    <label>Endereço</label>
+    <input name="enderecoFuncionario" type="text" th:field="*{enderecoFuncionario}" >
+    
+    <label>Endereço</label>
+    <input name="cidadeFuncionario" type="text" th:field="*{cidadeFuncionario}" >
+    
+    <label>Estado</label>
+    <input name="estadoFuncionario" type="text" th:field="*{estadoFuncionario}">
+    
+    <label>Idade</label>
+    <input name="idadeFuncionario" type="text" th:field="*{idadeFuncionario}" >
+    
+    <label>Função</label>
+    <input name="cargoFuncionario" type="text" th:field="*{cargoFuncionario}">
+    
+    <input class="waves-effect waves-light btn" type="submit" value="Salvar">
+    
+     -->
+    
+    
+
+	</form>
+
+</div>
+
+	<!--JavaScript at end of body for optimized loading-->
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+</body>
+</html>
